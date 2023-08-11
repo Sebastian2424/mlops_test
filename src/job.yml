@@ -1,15 +1,17 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
 code: model
 command: >-
-  python 
-  --
-  --
+  python main.py 
+  --iris-csv ${{inputs.iris_csv}}
+  --C ${{inputs.C}}
+  --kernel ${{inputs.kernel}}
+  --coef0 ${{inputs.coef0}}
 inputs:
   training_data: 
     type: uri_folder 
-    path: 
+    path: wasbs://datasets@azuremlexamples.blob.core.windows.net/iris.csv
   reg_rate: 0.01
 environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
-compute: 
-experiment_name: 
-description: 
+compute: cpu-cluster
+experiment_name: sklearn-iris-example
+description: Train a scikit-learn SVM on the Iris dataset.
